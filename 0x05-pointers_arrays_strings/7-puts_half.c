@@ -1,36 +1,35 @@
 #include "main.h"
 
 /**
-* leet - a function that encodes a string into 1337
-* @s: a pointer string given by main
-*
-* Description: changes 'let' to '137' o to 0
-* Return: the char array
-*/
-
-char *leet(char *s)
+  * puts_half - Prints half of a string
+  * @str: The string to print
+  *
+  * Return: void
+  */
+void puts_half(char *str)
 {
-	int i = 0;
-	int j;
-	int array[10][2] = {{97, 52},
-	{65, 52},
-	{101, 51},
-	{69, 51},
-	{108, 49},
-	{76, 49},
-	{111, 48},
-	{79, 48},
-	{116, 55},
-	{84, 55}};/* AELOT */
+	int j = 0;
+	int k;
 
-	while (s[i] != 0)
+	while (str[j] != '\0')
 	{
-		for (j = 0 ; j < 10; j++)
-		{
-			if (s[i] == array[j][0])
-				s[i] = array[j][1];
-		}
-		i++;
+		j++;
 	}
-	return (s);
+
+	if (j % 2 == 1)
+	{
+		k = (j - 1) / 2;
+		k += 1;
+	}
+	else
+	{
+		k = j / 2;
+	}
+
+	for (; k < j; k++)
+	{
+		_putchar(str[k]);
+	}
+
+	_putchar('\n');
 }
