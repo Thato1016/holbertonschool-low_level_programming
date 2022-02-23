@@ -46,18 +46,11 @@ int check_it(char *s, int i, int j)
 * Return: either 1 or 0 dpeenind on if it is a palindrome
 */
 
-int is_palindrome(char *);
-
-/**
- * main - check the code for Holberton School students.
- *
- * Return: Always 0.
- */
-int main(void)
+int is_palindrome(char *s)
 {
-	int r;
+	int j = (_strlen(s));
 
-	r = is_palindrome("abcdecba");
-	printf("%d\n", r);
-	return (0);
+	if (j == 0 || j == 1)
+		return (1);
+	return (check_it(s, 0, j - 1));
 }
