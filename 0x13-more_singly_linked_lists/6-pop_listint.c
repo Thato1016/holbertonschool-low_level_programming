@@ -1,23 +1,24 @@
+#include <stdlib.h>
 #include "lists.h"
 
 /**
-* pop_listint - a function that deletes the head node and return that data
-* @head: the pointer to the pointer head
-*
-* Description: deletes the beginning node
-* Return: the value of the popped node
-*/
-
+  * pop_listint - ...
+  * @head: ...
+  *
+  * Return: ...
+  */
 int pop_listint(listint_t **head)
 {
-	listint_t *temp;
-	int pop = 0;
+	listint_t *new_head;
+	int n = 0;
 
-	if (!(*head))
-		return (0);
-	temp = (*head)->next;
-	pop = (*head)->n;
-	free(*head);
-	*head = temp;
-	return (pop);
+	if (*head != NULL)
+	{
+		new_head = (*head)->next;
+		n = (*head)->n;
+		free(*head);
+		*head = new_head;
+	}
+
+	return (n);
 }

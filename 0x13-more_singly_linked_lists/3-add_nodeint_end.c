@@ -1,34 +1,42 @@
+#include <stdlib.h>
+#include <stdio.h>
 #include "lists.h"
 
 /**
-* add_nodeint_end - adds a node to the end of a linked list
-* @head: the pointer to the head node
-* @n: the int we want copied over
-*
-* Description: Same as 0x11 problem 3
-* Return: the head pointer or error
-*/
-
+  * add_nodeint_end - Adds a new node to the end of a linked list
+  * @head: The head of the linked list
+  * @n: The value to add to the end of the linked list
+  *
+  * Return: The address of the new element, or NULL it failed
+  */
 listint_t *add_nodeint_end(listint_t **head, const int n)
 {
-	listint_t *add;
-	listint_t *traverse;
+	listint_t *new_list, *temp;
 
-	if (!head)
-		exit(98);
-	traverse = *head;
-	add = malloc(sizeof(listint_t));
-	if (!add)
-		exit(98);
-	add->n = n;
-	add->next = NULL;
-	if (*head == NULL)
+	if (head)
 	{
-		*head = add;
-		return (*head);
+		new_list = malloc(sizeof(listint_t));
+		if (new_list == NULL)
+			return (NULL);
+
+		new_list->n = n;
+		new_list->next = NULL;
+
+		if (*head == NULL)
+		{
+			*head = new_list;
+			return (*head);
+		}
+		else
+		{
+			temp = *head;
+			while (temp->next)
+				temp = temp->next;
+
+			temp->next = new_list;
+			return (temp);
+		}
 	}
-	while (traverse->next)
-		traverse = traverse->next;
-	traverse->next = add;
-	return (*head);
+
+	return (NULL);
 }

@@ -1,21 +1,24 @@
+#include <stdlib.h>
 #include "lists.h"
 
 /**
-* sum_listint - a function that adds
-* @head: the pointer to the head node given to us
-*
-* Description: kinda like problem 0 from 0x11
-* Return: The number of nodes or -1 if error
-*/
-
+  * sum_listint - ...
+  * @head: ...
+  *
+  * Return: ...
+  */
 int sum_listint(listint_t *head)
 {
-	int count = 0;
+	int amount = 0;
 
-	while (head)
+	if (head)
 	{
-		count += head->n;
-		head = head->next;
+		while (head)
+		{
+			amount += head->n;
+			head = head->next;
+		}
 	}
-	return (count);
+
+	return (amount);
 }
