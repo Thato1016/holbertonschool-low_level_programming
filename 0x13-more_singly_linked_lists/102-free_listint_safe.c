@@ -1,51 +1,40 @@
 #include "lists.h"
-
 /**
-* free_listint_safe - frees a list
-* @h: the pointer to a pointer of head
-*
-* Description: does stuff. i didnt get this right
-*	this is similar to the last problem, but now we
-*	want to free instead of print. inside the second loop
-*	pretty much the same code to iterate through, just free it all
-* Return: the size of the list
-*/
-
+ * free_listint_safe - free a linked list safe.
+ * @h: linked  list.
+ * Return: number of nodes in the list.
+ */
 size_t free_listint_safe(listint_t **h)
 {
-	size_t count = 0;
-	listint_t **array;
-	unsigned int i = 0;
-	unsigned int flag = 0;
+	size_t c = 0;
+	aux_list *a, *b, *t;
+	listint_t *f;
 
-	array = malloc(sizeof(listint_t *) * 1024);
-	if (!array)
-		exit(98);
-	while (*h != NULL)
+	f = *h;
+	a = NULL;
+	for (; *h != NULL; c++)
 	{
-		for (i = 0; i < count; i++)
+		t = malloc(sizeof(aux_list));
+		if (!t)
+			exit(98);
+		t->p = *h;
+		t->next = a;
+		a = t;
+		b = a->next;
+		f = *h;
+		while (b != NULL)
 		{
-			if (*h == array[i])
+			if (*h == b->p)
 			{
-				flag = 1;
-				break;
+				free_aux(a);
+				*h = NULL;
+				return (c);
 			}
-			else
-				flag = 0;
+			b = b->next;
 		}
-		if (flag == 1)
-			break;
-		array[count] = *h;
 		*h = (*h)->next;
-		count++;
+		free(f);
 	}
-	i = 0;
-	while (i < count)
-	{
-		free(array[i]);
-		i++;
-	}
-	free(array);
-	*h = NULL;
-	return (count);
+	free_aux(a);
+	return (c);
 }
