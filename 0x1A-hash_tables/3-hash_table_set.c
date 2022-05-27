@@ -1,49 +1,58 @@
+/*
+ * File: 3-hash_table_set.c
+ * Auth: Elizabeth Mashilo
+*/
+
 #include "hash_tables.h"
+
 /**
- * hash_table_set - adds an element to the hash table
- * @ht: hash table to add or update
- * @key: key (a string)
- * @value: value associated with the key
- * Return: 1 if successful, 0 otherwise
+ * hash_table_set - Add or update an element in a hash table.
+ * @ht: A pointer to the hash table.
+ * @key: The key to add - cannot be an empty string.
+ * @value: The value associated with key.
+ *
+ * Return: Upon failure - 0.
+ *         Otherwise - 1.
  */
 int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 {
-	unsigned long int i;
-	hash_node_t *new, *temp;
+	hash_node_t *new;
+	char *value_copy;
+	unsigned long int index, i;
 
-	if (ht == NULL)
-		return (0);
-	if (key == NULL || key[0] == '\0')
-		return (0);
-	if (ht->size == 0 || ht->array == NULL)
+	if (ht == NULL || key == NULL || *key == '\0' || value == NULL)
 		return (0);
 
-	i = key_index((unsigned char *)key, ht->size);
-	temp = ht->array[i];
+	value_copy = strdup(value);
+	if (value_copy == NULL)
+		return (0);
 
-	while (temp != NULL)
+	index = key_index((const unsigned char *)key, ht->size);
+	for (i = index; ht->array[i]; i++)
 	{
-		if (strcmp(temp->key, key) == 0)
+		if (strcmp(ht->array[i]->key, key) == 0)
 		{
-			free(temp->value);
-			temp->value = strdup(value);
+			free(ht->array[i]->value);
+			ht->array[i]->value = value_copy;
 			return (1);
 		}
-		temp = temp->next;
 	}
 
 	new = malloc(sizeof(hash_node_t));
 	if (new == NULL)
+	{
+		free(value_copy);
 		return (0);
-
+	}
 	new->key = strdup(key);
-	new->value = strdup(value);
+	if (new->key == NULL)
+	{
+		free(new);
+		return (0);
+	}
+	new->value = value_copy;
+	new->next = ht->array[index];
+	ht->array[index] = new;
 
-	if (ht->array[i] != NULL)
-		new->next = ht->array[i];
-	else
-		new->next = NULL;
-
-	ht->array[i] = new;
 	return (1);
 }
