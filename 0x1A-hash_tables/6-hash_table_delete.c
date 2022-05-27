@@ -1,6 +1,6 @@
 /*
  * File: 6-hash_table_delete.c
- * Auth: Elizabeth Mashilo
+ * Thato Khosa
 */
 
 #include "hash_tables.h"

@@ -1,6 +1,6 @@
 /*
  * File: 0-hash_table_create.c
- * Auth:Elizabeth Mashilo
+ * Auth:Thato Khosa
  */
 
 #include "hash_tables.h"

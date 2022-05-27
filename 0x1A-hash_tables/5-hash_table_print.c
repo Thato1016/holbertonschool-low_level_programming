@@ -1,6 +1,6 @@
 /*
  * File: 5-hash_table_print.c
- * Auth: Elizabeth Mashilo
+ * Auth: Thato Khosa
 */
 
 #include "hash_tables.h"
